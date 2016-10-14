@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:custom="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    !-- layout_gravity : 设置控件在父控件中的位置
+    layout_ ： 相对于父控件
+    gravity : 设置控件中的内容的位置
+    -->
+
+    <TextView
+        style="@style/activityTitle"
+        android:text="常用工具"
+        />
+
+    <ui.SettingView
+        android:id="@+id/sv_commontools_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        custom:isToggle="false"
+        custom:setBackground="first"
+        custom:title="号码归属地查询                                                                            "
+        ></ui.SettingView>
+
+
+    <ui.SettingView
+        android:id="@+id/sv_setting_common_phoneNum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        custom:isToggle="false"
+        custom:setBackground="last"
+        custom:title="常用号码查询                                                                                   "
+        ></ui.SettingView>
+
+
+    <ui.SettingView
+        android:id="@+id/sv_commontools_backup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        custom:isToggle="false"
+        custom:setBackground="first"
+        custom:title="短信备份                                                                                          "
+        ></ui.SettingView>
+
+
+    <ui.SettingView
+        android:id="@+id/sv_commontools_recovery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        custom:isToggle="false"
+        custom:setBackground="last"
+        custom:title="短信还原                                                                                "
+        ></ui.SettingView>
+
+    <ui.SettingView
+        android:id="@+id/sv_commontools_watchdog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        custom:isToggle="false"
+        custom:setBackground="first"
+        custom:title="程序锁管理                                                                            "
+        ></ui.SettingView>
+
+    <ui.SettingView
+        android:id="@+id/sv_commontools_watchdog_service1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        custom:setBackground="middle"
+        custom:title="开启电子狗服务1                                                                "
+        ></ui.SettingView>
+
+
+    <ui.SettingView
+        android:id="@+id/sv_commontools_watchdog_service2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        custom:setBackground="last"
+        custom:title="开启电子狗服务2                                                                  "
+        ></ui.SettingView>
+
+</LinearLayout>

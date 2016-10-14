@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true"
+          android:drawable="@drawable/list_button_unlock_pressed" /> <!-- pressed : 按下的图片-->
+    <item android:drawable="@drawable/list_button_unlock_default" /> <!-- default ： 默认显示的图片-->
+</selector>

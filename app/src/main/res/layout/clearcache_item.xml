@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="8dp"
+    >
+
+    <ImageView
+        android:id="@+id/iv_clearcache_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_contact"
+        />
+    <!-- layout_toRightOf : 在那个控件的有方法 -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/iv_clearcache_icon"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/tv_clearcache_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手机防盗"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_clearcache_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="远程定位手机"
+            android:textColor="#99000000"
+            android:textSize="12sp"
+            />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_clearcache_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/clearcache_item_selector"
+        />
+</RelativeLayout>

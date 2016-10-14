@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.example.sin.mobilesafe">
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
+    <uses-permission android:name="android.permission.SEND_SMS"></uses-permission>
+    <uses-permission android:name="android.permission.READ_CONTACTS"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"></uses-permission>
+    <uses-permission android:name="android.permission.READ_SMS"></uses-permission>
+    <uses-permission android:name="android.permission.READ_CONTACTS"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_CONTACTS"></uses-permission>
+    <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
+    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
+    <uses-permission android:name="android.permission.READ_CALL_LOG"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_CALL_LOG"></uses-permission>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"></uses-permission>
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"></uses-permission>
+    <uses-permission android:name="android.permission.GET_TASKS"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_SMS"></uses-permission>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
+    <uses-permission android:name="android.permission.GET_PACKAGE_SIZE"></uses-permission>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".SettingActivity"></activity>
+        <activity android:name=".LostFindActivity"></activity>
+        <activity android:name=".SetUp1Activity"></activity>
+        <activity android:name=".SetUp2Activity"></activity>
+        <activity android:name=".SetUp3Activity"></activity>
+        <activity android:name=".SetUp4Activity"></activity>
+        <activity android:name=".SetUp5Activity"></activity>
+        <activity android:name=".SetUpBaseActivity"></activity>
+        <activity android:name=".ContactsActivity"></activity>
+        <activity android:name=".CallSmsSafeActivity"></activity>
+        <activity android:name=".CommonToolsActivity"></activity>
+        <activity android:name=".BlackNumberAddAndEditActivity"></activity>
+        <activity android:name=".AddressActivity"></activity>
+        <activity android:name=".CommonNumberActivity"></activity>
+        <activity android:name=".AppManagerActivity"></activity>
+        <activity android:name=".ProcessManagerActivity"></activity>
+        <activity android:name=".AppLockActivity"></activity>
+        <activity android:name=".TrafficManagerActivity"></activity>
+        <activity android:name=".ClearCacheActivity"></activity>
+        <activity
+            android:name="WatchDogActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"></activity>
+
+        <receiver android:name="receiver.BootCompleteReceiver">
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+            </intent-filter>
+        </receiver>
+        //注册广播接收者
+        <receiver android:name="receiver.SMSReceiver">
+            <intent-filter android:priority="1000">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"></action>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="receiver.Admin">
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/permission"/>
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="receiver.WidgetReceiver">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/example_appwidget_info"/>
+        </receiver>
+        <receiver android:name="receiver.WidgetCustomReceiver">
+            <intent-filter>
+                <action android:name="CLEAR_CACHE"></action>
+            </intent-filter>
+        </receiver>
+
+        <service android:name="service.GpsService"></service>
+        <service android:name="service.CallSMSSafeService"></service>
+        <service android:name="service.AddressService"></service>
+        <service android:name="service.LockScreenService"></service>
+        <service android:name="service.ProtectedService"></service>
+        <service android:name="service.WidgetService"></service>
+        <service android:name="service.WatchDogService1"></service>
+        <service
+            android:name="service.WatchDogService2"
+            android:label="@string/accessibility_service_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+
+    </application>
+
+</manifest>

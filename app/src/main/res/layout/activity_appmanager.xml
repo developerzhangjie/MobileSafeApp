@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <TextView
+        style="@style/activityTitle"
+        android:text="软件管理"
+        />
+
+    <ui.ProgressBarView
+        android:id="@+id/pv_appmanager_memory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </ui.ProgressBarView>
+
+    <ui.ProgressBarView
+        android:id="@+id/pv_appmanager_sd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp">
+    </ui.ProgressBarView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/lv_appmanager_applications"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ListView>
+
+        <TextView
+            android:id="@+id/tv_appmanager_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#D6D3CE"
+            android:padding="8dp"
+            android:text="用户程序(xx个)"
+            android:textColor="@android:color/black"
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_appmanager_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            >
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateDrawable="@drawable/progressbar_drawable"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="正在加载......"
+                />
+        </LinearLayout>
+
+    </FrameLayout>
+</LinearLayout>

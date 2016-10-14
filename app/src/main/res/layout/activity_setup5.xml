@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--
+         layout_gravity : 设置控件在父控件中的位置
+         layout_ ： 相对于父控件
+         gravity : 设置控件中的内容的位置
+    -->
+    <!-- 要想修改样式文件中的属性的值,直接在控件中使用相同的属性设置值,会把样式文件中的属性的值覆盖 -->
+
+    <TextView
+        style="@style/setupTitleStytle"
+        android:layout_width="match_parent"
+        android:text="5.恭喜您!设置完成" />
+
+
+    <CheckBox
+        android:id="@+id/cb_setup5_protected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="选中开启防盗保护"
+        android:textSize="20dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/step_5" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/presence_invisible" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/presence_invisible" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/presence_invisible" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/presence_invisible" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/presence_online" />
+        </LinearLayout>
+
+        <Button
+            style="@style/next"
+            android:text="设置完成" />
+
+        <Button style="@style/previous" />
+    </RelativeLayout>
+
+</LinearLayout>

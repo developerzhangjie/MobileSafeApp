@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    >
+    <ImageView 
+        android:id="@+id/iv_addressdialogitem_bgcolor"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:background="@drawable/addressdialog_normal"
+        android:layout_centerVertical="true"
+        />
+	<TextView 
+	    android:id="@+id/tv_addressdialogitem_colorname"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="中国红"
+	    android:layout_toRightOf="@+id/iv_addressdialogitem_bgcolor"
+	    android:textSize="18sp"
+	    android:layout_centerVertical="true"
+	    android:textColor="#000000"
+	    />
+	<ImageView 
+	    android:id="@+id/iv_addressdialogitem_isselect"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:src="@drawable/ic_selected"
+	    android:layout_alignParentRight="true"
+	    android:layout_centerVertical="true"
+	    android:layout_marginRight="15dp"
+	    />
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</RelativeLayout>

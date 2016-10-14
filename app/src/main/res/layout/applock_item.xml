@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_applockitem_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_launcher"
+        />
+
+    <TextView
+        android:id="@+id/tv_applockitem_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/iv_applockitem_icon"
+        android:text="黑马手机卫士上海04"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        />
+
+    <ImageView
+        android:id="@+id/iv_applockitem_islock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/applock_lock_selector"
+        />
+
+</RelativeLayout>

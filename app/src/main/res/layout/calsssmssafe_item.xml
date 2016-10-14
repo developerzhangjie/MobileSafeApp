@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp">
+
+        <TextView
+            android:id="@+id/tv_callsmssafe_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10086"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_callsmssafe_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="电话拦截"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_callsms_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/callsms_delete_selector" />
+
+</RelativeLayout>

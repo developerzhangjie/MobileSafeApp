@@ -1,0 +1,107 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--活动标题样式-->
+    <style name="activityTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/activity_title</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!--setup内容基础样式-->
+    <style name="setupContentItemBasicStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#aa000000</item>
+    </style>
+
+    <!--setup标题样式-->
+    <style name="setupTitleStytle" parent="activityTitle">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">10dp</item>
+    </style>
+
+    <!--setup正文标题样式 -->
+    <style name="setupContentTitle" parent="setupContentItemBasicStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">8dp</item>
+
+    </style>
+
+    <!--setup内容条目样式 -->
+    <style name="setupContentItem" parent="setupContentItemBasicStyle">
+        <item name="android:drawableLeft">@drawable/dialog_title_default_icon</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:drawablePadding">5dp</item>
+        <item name="android:paddingTop">10dp</item>
+    </style>
+
+    <!--下一步按钮样式，包括点击函数-->
+    <style name="next">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:background">@drawable/home_setpassworddialog_ok_selector</item>
+        <item name="android:drawableRight">@drawable/next</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:text">下一步</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:onClick">next</item>
+    </style>
+
+    <!--上一步按钮样式，包括点击函数-->
+    <style name="previous">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:background">@drawable/home_setpassworddialog_ok_selector</item>
+        <item name="android:drawableLeft">@drawable/pre</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:text">上一步</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:onClick">previous</item>
+    </style>
+
+    <style name="addressDialog" parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@style/animationDialog</item>
+
+        <!-- 背景的阴影是否开启 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 窗口是否透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 除去标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 是否关闭触摸边框操作 -->
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+    <style name="animationDialog" parent="android:Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/input_method_enter</item>
+        <item name="android:windowExitAnimation">@anim/input_method_exit</item>
+    </style>
+
+    <style name="widget_text">
+        <item name="android:textSize">16.0dip</item>
+        <item name="android:textColor">@color/textColorPrimaryDark</item>
+    </style>
+
+</resources>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/activityTitle"
+        android:text="设置中心" />
+
+    <ui.SettingView
+        android:gravity="center_vertical"
+        android:id="@+id/sv_setting_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        custom:setBackground="first"
+        custom:title="设置自动更新"></ui.SettingView>
+
+    <ui.SettingView
+        android:id="@+id/sv_setting_callsmssafe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        custom:setBackground="last"
+        custom:title="设置骚扰拦截"></ui.SettingView>
+
+    <ui.SettingView
+        android:id="@+id/sv_setting_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        custom:setBackground="first"
+        custom:title="归属地显示设置"></ui.SettingView>
+
+    <ui.SettingView
+        android:id="@+id/sv_setting_changed_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        custom:setBackground="last"
+        custom:isToggle="false"
+        custom:title="归属地风格设置                                                                  "></ui.SettingView>
+
+</LinearLayout>
