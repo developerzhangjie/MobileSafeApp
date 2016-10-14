@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageStats;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.text.format.Formatter;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,7 +97,7 @@ public class ClearCacheActivity extends Activity {
                 int progress = 0;
                 for (final PackageInfo packageInfo : packages) {
                     //进度条的速度太快
-                    SystemClock.sleep(50);
+                   // SystemClock.sleep(50);
                     progress++;
                     pb_clearcache_porgress.setProgress(progress);
                     //显示应用程序的图标和名称
