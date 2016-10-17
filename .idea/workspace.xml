@@ -3068,7 +3068,14 @@
       <option name="project" value="LOCAL" />
       <updated>1476677075895</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="2016.10.17 完成整个项目，存在一点小bug，不影响使用，主要是.9图片未处理">
+      <created>1476677150588</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1476677150588</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TestHistory">
