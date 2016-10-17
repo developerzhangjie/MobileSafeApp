@@ -79,6 +79,7 @@ public class SplashActivity extends Activity {
         //拷贝数据库
         copyDB("address.db");
         copyDB("commonnum.db");
+        copyDB("antivirus.db");
         //开启前台进程服务,首先判断服务有没有开启，没开启，就开启
         if (!ServicUtil.isServiceRunning(this, "service.ProtectedService")) {
             startService(new Intent(this, ProtectedService.class));

@@ -66,6 +66,7 @@
         <activity android:name=".AppLockActivity"></activity>
         <activity android:name=".TrafficManagerActivity"></activity>
         <activity android:name=".ClearCacheActivity"></activity>
+        <activity android:name=".AntivirusActivity"></activity>
         <activity
             android:name="WatchDogActivity"
             android:excludeFromRecents="true"

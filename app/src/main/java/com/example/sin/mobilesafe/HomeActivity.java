@@ -136,6 +136,9 @@ public class HomeActivity extends Activity implements View.OnClickListener, Adap
                 startActivity(intent4);
                 break;
             case 5:
+                //手机杀毒
+                Intent intent5 = new Intent(HomeActivity.this, AntivirusActivity.class);
+                startActivity(intent5);
 
                 break;
             case 6:

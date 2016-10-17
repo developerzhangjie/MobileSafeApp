@@ -10,10 +10,11 @@ import bean.BlackNumberInfo;
 import bean.ContactsInfo;
 import db.BlackNumberOpenHelper;
 import db.WatchDogOpenHelper;
+import db.dao.AntivirusDao;
 import db.dao.BlackNumberDao;
 import db.dao.WatchDogDao;
 import engine.ContactEngine;
-import engine.SMSEngine;
+import utils.MD5Utils;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
@@ -83,7 +84,25 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     }
 
     //获取系统短信测试
-    public void testGetSMS() {
+   /* public void testGetSMS() {
         SMSEngine.getSMS(getContext());
+    }*/
+
+    //测试MD5
+    public void testMD5() {
+//        String s = Md5Utils.md5("123456");
+        String s = MD5Utils.md5("123456");
+        System.out.println(s);
+    }
+
+    //病毒测试
+    public void testAntivirus() {
+        boolean b = AntivirusDao.isAntivirus(getContext(), "e10adc3949ba59abbe56e057f20f883e");
+        if (b) {
+            System.out.println("是病毒");
+        } else {
+            System.out.println("不是病毒");
+        }
+
     }
 }
