@@ -25,7 +25,7 @@ import bean.HomeGridviewIteamBeanInfo;
 import utils.Constants;
 import utils.SharedPreferencesUtils;
 
-/**
+/**description：主界面
  * Created by Sin on 2016/9/1.
  */
 public class HomeActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
@@ -62,16 +62,19 @@ public class HomeActivity extends Activity implements View.OnClickListener, Adap
         //讲数组中的数据存到集合中
         list = new ArrayList<>();
         for (int i = 0; i < ICONS.length; i++) {
+            //模块的对象
             HomeGridviewIteamBeanInfo info = new HomeGridviewIteamBeanInfo();
             info.inconId = ICONS[i];
             info.title = TITLES[i];
             info.desc = DESCS[i];
             list.add(info);
         }
+        //设置动画
         setAnimation();
         gv_home_gridview.setAdapter(new MyAdapter());
     }
 
+    //设置动画
     private void setAnimation() {
         ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(iv_home_logo, "RotationY", 0f, 90f, 180f, 270f, 360f);
         //动画的持续时间

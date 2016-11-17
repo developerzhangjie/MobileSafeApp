@@ -3,21 +3,21 @@
 
     <item
         is-multidex="false"
+        jar="D:\Users\devel\AndroidStudioProjects\MobileSafe\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="f9ec929057f5f5b20645835d9e6df7429658c04b">
+        <dex dex="D:\Users\devel\AndroidStudioProjects\MobileSafe\app\build\intermediates\pre-dexed\debug\instant-run-bootstrap_9e5a720bf88a7e8fb001f7a0524c654677e96df4.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="D:\Users\devel\AndroidStudioProjects\MobileSafe\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.2.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.1"
         sha1="c3c638be6e650b165ab9ae144857b64e82787fad">
         <dex dex="D:\Users\devel\AndroidStudioProjects\MobileSafe\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-24.2.0_a5f53aec8f45582cd3f34d08189cc791d324c5a0.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\Users\devel\AndroidStudioProjects\MobileSafe\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.1"
-        sha1="aea4c10709f3a862074307bc29c3a6b43a610122">
-        <dex dex="D:\Users\devel\AndroidStudioProjects\MobileSafe\app\build\intermediates\pre-dexed\debug\instant-run-bootstrap_9e5a720bf88a7e8fb001f7a0524c654677e96df4.jar" />
     </item>
     <item
         is-multidex="false"

@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 /**
+ * description:TextView文本的跑马灯效果
  * Created by Sin on 2016/9/2.
  */
 public class MarqueeTextView extends TextView {
@@ -17,6 +18,7 @@ public class MarqueeTextView extends TextView {
     public MarqueeTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setSingleLine(true);
+        //使用marquee滚动动画显示文本
         setEllipsize(TextUtils.TruncateAt.MARQUEE);
         setFocusable(true);
         setFocusableInTouchMode(true);

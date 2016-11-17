@@ -9,8 +9,6 @@ import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,20 +34,11 @@ import utils.ServicUtil;
 import utils.SharedPreferencesUtils;
 
 public class SplashActivity extends Activity {
-    private final String TAG = "splash";
-    String versionName;
-    private String apkurl;
+    private String versionName;
+    private String apkUrl;
     private String desc;
-    private String responeseCode;
+    private String responseCode;
     private ProgressDialog progressDialog;
-    private final int INSTALL_REQUESTCODE = 100;
-    private Handler handler = new Handler();
-//    private Handler handler = new Handler() {
-//        @Override
-//        public void handleMessage(Message msg) {
-//            update();
-//        }
-//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,21 +50,18 @@ public class SplashActivity extends Activity {
     private void initView() {
         TextView splash = (TextView) findViewById(R.id.tv_splash);
         versionName = PackageUtil.getVersionName(this);
-        splash.setText("版本:" + versionName);
+        splash.setText(getString(R.string.app_version) + versionName);
         //连接服务器，查看是否有最新版本
-//        update();
-        handler.postDelayed(new Runnable() {
+        splash.postDelayed(new Runnable() {
             @Override
             public void run() {
-                //这里面操作主线程
                 if (SharedPreferencesUtils.getBoolean(SplashActivity.this, Constants.TOGGLE, true)) {
                     update();
                 } else {
                     enterHome();
                 }
             }
-        }, 2000);
-//        handler.sendEmptyMessageDelayed(0, 2000);
+        }, 1000);
         //拷贝数据库
         copyDB("address.db");
         copyDB("commonnum.db");
@@ -105,7 +91,7 @@ public class SplashActivity extends Activity {
                 out = new FileOutputStream(file);
                 //3.读写操作
                 byte[] b = new byte[1024];
-                int len = -1;
+                int len;
                 while ((len = in.read(b)) != -1) {
                     out.write(b, 0, len);
                 }
@@ -123,45 +109,38 @@ public class SplashActivity extends Activity {
     private void update() {
         //需要联网，1.这是耗时操作，要在子线程中执行；可以使用第三方类库
         //2.需要加联网权限
-
         //连接超时时间
         HttpUtils httpUtils = new HttpUtils(2000);
         //请求方法 url 回调
-        String CONNECTIONURL = "http://192.168.1.133:8080/update.html";
-        httpUtils.send(HttpRequest.HttpMethod.GET, CONNECTIONURL, new RequestCallBack<String>() {
+        String CONNECTION_URL = "http://192.168.1.133:8080/update.html";
+        httpUtils.send(HttpRequest.HttpMethod.GET, CONNECTION_URL, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-                //1.获取服务器返回的数据 code 新版下载地址 apkurl 新版说明 desc
+                //1.获取服务器返回的数据 code 新版下载地址 apkUrl 新版说明 desc
                 String result = responseInfo.result;
                 try {
+                    //解析服务器返回的json串
                     JSONObject jsonObject = new JSONObject(result);
-                    responeseCode = jsonObject.getString("code");
-                    apkurl = jsonObject.getString("apkurl");
+                    responseCode = jsonObject.getString("code");
+                    apkUrl = jsonObject.getString("apkUrl");
                     desc = jsonObject.getString("desc");
-                    Log.d(TAG, result);
-                    Log.d(TAG, "服务器返回的数据：" + responeseCode + "  下载地址:" + apkurl + "  说明:" + desc);
                     //2.查看是否有最新版本
-                    //没有最新版本
-                    if (responeseCode.equals(versionName)) {
-                        Log.d(TAG, "没有可更新，已是最新版本");
-                        //进入主界面
+                    if (responseCode.equals(versionName)) {
+                        //没有最新版本，进入主界面
                         enterHome();
                     } else {
-                        //有最新版本
-                        Log.d(TAG, "有可更新版本");
-                        //弹出对话框，让用户进行选择是否升级
+                        //有最新版本，弹出对话框，让用户进行选择是否升级
                         showUpdateDialog();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
+                //连接服务器失败，进入主界面
                 enterHome();
-                Log.d(TAG, "连接失败");
             }
         });
     }
@@ -170,7 +149,7 @@ public class SplashActivity extends Activity {
     private void showUpdateDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         //设置标题
-        builder.setTitle("发现新版本" + responeseCode);
+        builder.setTitle("发现新版本：" + responseCode);
         //设置信息
         builder.setMessage(desc);
         //设置图标
@@ -197,12 +176,9 @@ public class SplashActivity extends Activity {
         builder.setNegativeButton("稍后再说", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //暂不升级
-                //销毁对话框
+                //销毁对话框并进入主界面
                 dialog.dismiss();
-                //进入主界面
                 enterHome();
-
             }
         });
         builder.show();
@@ -211,18 +187,18 @@ public class SplashActivity extends Activity {
     private void downloadApk() {
         //设置下载进度条
         progressDialog = new ProgressDialog(this);
+        // 设置是否可以通过点击Back键取消
         progressDialog.setCancelable(false);
-        progressDialog.setProgressStyle(progressDialog.STYLE_HORIZONTAL);
+        // 设置进度条的形式为水平的进度条
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.show();
-
         //需要联网 在子线程中操作
         HttpUtils http = new HttpUtils();
+        // 判断SD卡是否存在，并且是否具有读写权限
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            http.download(apkurl, "sdcard/app-debug.apk", new RequestCallBack() {
-
+            http.download(apkUrl, "sdcard/app-debug.apk", new RequestCallBack<File>() {
                 @Override
                 public void onSuccess(ResponseInfo responseInfo) {
-                    Log.d(TAG, "下载成功");
                     //销毁下载进度对话框
                     progressDialog.dismiss();
                     //安装新版本APK
@@ -231,16 +207,15 @@ public class SplashActivity extends Activity {
 
                 @Override
                 public void onFailure(HttpException e, String s) {
-                    Log.d(TAG, "下载失败");
                     //销毁下载进度对话框
                     progressDialog.dismiss();
                     //安装失败，进入主界面
                     enterHome();
                 }
 
-                /*total 最大进度
-                * current 当前进度
-                *isUploading 是否上传 */
+                /**total 最大进度
+                 *current 当前进度
+                 *isUploading 是否上传 */
                 @Override
                 public void onLoading(long total, long current, boolean isUploading) {
                     super.onLoading(total, current, isUploading);
@@ -258,18 +233,12 @@ public class SplashActivity extends Activity {
 
     //安装新版本APK
     private void installerApk() {
-        /*
-        * <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="content" />
-                <data android:scheme="file" />
-                <data android:mimeType="application/vnd.android.package-archive" />
-                */
         Intent intent = new Intent();
-        intent.setAction("android.intent.action.VIEW");
-        intent.addCategory("android.intent.category.DEFAULT");
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
         intent.setDataAndType(Uri.fromFile(new File("sdcard/app-debug.apk")), "application/vnd.android.package-archive");
-        startActivityForResult(intent, INSTALL_REQUESTCODE);
+        int INSTALL_REQUEST_CODE = 100;
+        startActivityForResult(intent, INSTALL_REQUEST_CODE);
     }
 
     @Override
