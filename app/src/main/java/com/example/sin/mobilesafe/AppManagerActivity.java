@@ -30,7 +30,7 @@ import ui.ProgressBarView;
 
 /**
  * Created by Sin on 2016/9/29.
- * Description:
+ * Description:软件管家
  */
 
 public class AppManagerActivity extends Activity implements View.OnClickListener {
@@ -45,7 +45,6 @@ public class AppManagerActivity extends Activity implements View.OnClickListener
     private AppInfo appInfo;
     private PopupWindow mPopupWindow;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +58,6 @@ public class AppManagerActivity extends Activity implements View.OnClickListener
         //设置popupWindow
         setListViewOnItemClickListener();
     }
-
 
     private void initView() {
         pv_appmanager_memory = (ProgressBarView) findViewById(R.id.pv_appmanager_memory);
@@ -224,17 +222,7 @@ public class AppManagerActivity extends Activity implements View.OnClickListener
         popupWindowHide();
     }
 
-
     private void uninstallApp() {
-        /**
-         *  <intent-filter>
-         <action android:name="android.intent.action.VIEW" />
-         <action android:name="android.intent.action.DELETE" />
-         <category android:name="android.intent.category.DEFAULT" />
-         <data android:scheme="package" />
-         </intent-filter>
-         */
-
         if (!appInfo.packageName.equals(getPackageName())) {
             if (!appInfo.isSystem) {
                 Intent intent = new Intent();
@@ -270,12 +258,6 @@ public class AppManagerActivity extends Activity implements View.OnClickListener
 
     //应用信息
     private void infoApp() {
-        /**
-         * act=android.settings.APPLICATION_DETAILS_SETTINGS   action
-         cat=[android.intent.category.DEFAULT]   category
-         dat=package:com.example.android.apis   data
-         cmp=com.android.settings/.applications.InstalledAppDetails u=0  跳转的界面
-         */
         Intent intent = new Intent();
         intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
         intent.addCategory("android.intent.category.DEFAULT");
@@ -285,13 +267,6 @@ public class AppManagerActivity extends Activity implements View.OnClickListener
 
     //分享应用
     private void shareApp() {
-        /**
-         *  <intent-filter>
-         <action android:name="android.intent.action.SEND" />
-         <category android:name="android.intent.category.DEFAULT" />
-         <data android:mimeType="text/plain" />
-         </intent-filter>
-         */
         Intent intent = new Intent();
         intent.setAction("android.intent.action.SEND");
         intent.addCategory("android.intent.category.DEFAULT");

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <TextView
         style="@style/activityTitle"
-        android:text="防盗中心" />
+        android:text="防盗中心"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,23 +17,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="安全号码"
-            android:textSize="18sp" />
+            android:textSize="18sp"/>
 
         <TextView
-            android:id="@+id/tv_lostfind_safeNumber"
+            android:id="@+id/tv_lostFind_safeNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textSize="18sp" />
+            android:textSize="18sp"/>
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="#99000000" />
+        android:background="#99000000"/>
 
     <RelativeLayout
-        android:id="@+id/rel_lostfind_protected"
+        android:id="@+id/rel_lostFind_protected"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/lostfind_protected_selector"
@@ -44,29 +44,29 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="防盗保护是否开启"
-            android:textSize="18sp" />
+            android:textSize="18sp"/>
 
         <ImageView
-            android:id="@+id/iv_lostfind_protected"
+            android:id="@+id/iv_lostFind_protected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@drawable/unlock" />
+            android:src="@drawable/unlock"/>
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="#99000000" />
+        android:background="#99000000"/>
 
     <TextView
-        android:id="@+id/tv_lostfind_setup"
+        android:id="@+id/tv_lostFind_setup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/lostfind_protected_selector"
         android:padding="8dp"
         android:text="重新进入设置向导"
-        android:textSize="18sp" />
+        android:textSize="18sp"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -74,23 +74,23 @@
         android:background="#aa000000"
         android:padding="8dp"
         android:text="功能介绍"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"/>
 
     <TextView
         style="@style/setupContentItem"
-        android:text="GPS追踪:#*location*#" />
+        android:text="GPS追踪:#*location*#"/>
 
     <TextView
         style="@style/setupContentItem"
-        android:text="远程销毁数据:#*wipedata*#" />
+        android:text="远程销毁数据:#*wipeData*#"/>
 
     <TextView
         style="@style/setupContentItem"
-        android:text="播放报警音乐:#*alarm*#" />
+        android:text="播放报警音乐:#*alarm*#"/>
 
     <TextView
         style="@style/setupContentItem"
-        android:text="远程锁屏:#*lockscreen*#" />
+        android:text="远程锁屏:#*lockScreen*#"/>
 
 
 </LinearLayout>

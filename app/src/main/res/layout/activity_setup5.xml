@@ -12,7 +12,7 @@
     <!-- 要想修改样式文件中的属性的值,直接在控件中使用相同的属性设置值,会把样式文件中的属性的值覆盖 -->
 
     <TextView
-        style="@style/setupTitleStytle"
+        style="@style/setupTitleStyle"
         android:layout_width="match_parent"
         android:text="5.恭喜您!设置完成" />
 

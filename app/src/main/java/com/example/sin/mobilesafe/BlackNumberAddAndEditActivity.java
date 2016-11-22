@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,12 +12,11 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import db.BlackNumberContant;
+import db.BlackNumberConstant;
 import db.dao.BlackNumberDao;
 
-import static android.R.attr.mode;
 
-/**
+/**具体的黑名单界面
  * Created by Sin on 2016/9/23.
  * Description:
  */
@@ -72,30 +70,27 @@ public class BlackNumberAddAndEditActivity extends Activity implements View.OnCl
             //回显拦截模式操作
             int checkedId = -1;
             switch (mode) {
-                case BlackNumberContant.BLACKNUMBER_CALL:
+                case BlackNumberConstant.BLACKNUMBER_CALL:
                     checkedId = R.id.rb_activity_blacknumber_add_and_edit_call;
                     break;
-                case BlackNumberContant.BACKNUMBER_SMS:
+                case BlackNumberConstant.BACKNUMBER_SMS:
                     checkedId = R.id.rb_activity_blacknumber_add_and_edit_sms;
                     break;
-                case BlackNumberContant.BALCKNUMBER_ALL:
+                case BlackNumberConstant.BALCKNUMBER_ALL:
                     checkedId = R.id.rb_activity_blacknumber_add_and_edit_all;
                     break;
             }
             rg_activity_blacknumber_select_mode.check(checkedId);
-        } else {
-            Log.d("TAG", "没有数据");
         }
     }
 
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             //保存按钮的点击事件
             case R.id.bt_activity_blacknumber_add_and_edit_save:
                 String mNumber = et_activity_blacknumber_add_and_edit_number.getText().toString().trim();
-                int mMode = -1;
+                int mMode;
                 if (TextUtils.isEmpty(mNumber)) {
                     Toast.makeText(mContext, " 请输入号码", Toast.LENGTH_SHORT).show();
                     return;
@@ -104,29 +99,28 @@ public class BlackNumberAddAndEditActivity extends Activity implements View.OnCl
                     //选择拦截模式
                     switch (mCheckedRadioButtonId) {
                         case R.id.rb_activity_blacknumber_add_and_edit_call:
-                            mMode = BlackNumberContant.BLACKNUMBER_CALL;
+                            mMode = BlackNumberConstant.BLACKNUMBER_CALL;
                             break;
                         case R.id.rb_activity_blacknumber_add_and_edit_sms:
-                            mMode = BlackNumberContant.BACKNUMBER_SMS;
+                            mMode = BlackNumberConstant.BACKNUMBER_SMS;
                             break;
                         case R.id.rb_activity_blacknumber_add_and_edit_all:
-                            mMode = BlackNumberContant.BALCKNUMBER_ALL;
+                            mMode = BlackNumberConstant.BALCKNUMBER_ALL;
                             break;
                         default:
                             Toast.makeText(mContext, " 请选择拦截模式", Toast.LENGTH_SHORT).show();
                             return;
                     }
-
                     //判断传递过来的动作是添加还是更新操作
                     if ("update".equals(mAction)) {
                         boolean isUpdate = mBlackNumberDao.updateBlackNumber(mNumber, mMode);
                         if (isUpdate) {
                             Intent intent = new Intent();
-                            intent.putExtra("mode", mode);
+                            intent.putExtra("mode", mMode);
+//                          intent.putExtra("mode", mode); 修改以前是这一行
                             intent.putExtra("position", mPosition);
                             setResult(Activity.RESULT_OK, intent);
                             finish();
-
                         } else {
                             Toast.makeText(mContext, " 系统繁忙，请稍后再试", Toast.LENGTH_SHORT).show();
                         }
@@ -137,7 +131,7 @@ public class BlackNumberAddAndEditActivity extends Activity implements View.OnCl
                         if (isAdd) {
                             //将号码和拦截模式回传给骚扰拦截界面进行显示
                             Intent intent = new Intent();
-                            intent.putExtra("name", mNumber);
+                            intent.putExtra("number", mNumber);
                             intent.putExtra("mode", mMode);
                             setResult(Activity.RESULT_OK, intent);
                             finish();
@@ -152,8 +146,5 @@ public class BlackNumberAddAndEditActivity extends Activity implements View.OnCl
                 finish();
                 break;
         }
-
     }
-
-
 }

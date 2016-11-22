@@ -22,7 +22,7 @@ import db.dao.CommonNumberDao;
 
 public class CommonNumberActivity extends Activity {
 
-    private ExpandableListView elv_commonnumber_commonnumbers;
+    private ExpandableListView elv_commonNumber_commonNumbers;
     private List<CommonNumberDao.GroupInfo> groups;
     private int currentExpandGroup = -1;
 
@@ -34,41 +34,44 @@ public class CommonNumberActivity extends Activity {
     }
 
     private void initView() {
-        elv_commonnumber_commonnumbers = (ExpandableListView) findViewById(R.id.elv_commonnumber_commonnumbers);
+        elv_commonNumber_commonNumbers = (ExpandableListView) findViewById(R.id.elv_commonnumber_commonnumbers);
         new Thread() {
             @Override
             public void run() {
+                //获取数据
                 groups = CommonNumberDao.getGroups(CommonNumberActivity.this);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        elv_commonnumber_commonnumbers.setAdapter(new MyAdapter());
+                        elv_commonNumber_commonNumbers.setAdapter(new MyAdapter());
                     }
                 });
             }
         }.start();
 
         //设置组的点击事件
-        elv_commonnumber_commonnumbers.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+        elv_commonNumber_commonNumbers.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                 //=-1表示之前没打开过
                 if (currentExpandGroup == -1) {
                     //打开自己
-                    elv_commonnumber_commonnumbers.expandGroup(groupPosition);
+                    elv_commonNumber_commonNumbers.expandGroup(groupPosition);
                     currentExpandGroup = groupPosition;
-                    elv_commonnumber_commonnumbers.setSelectedGroup(groupPosition);
+                    //将打开的条目置顶
+                    elv_commonNumber_commonNumbers.setSelectedGroup(groupPosition);
                 } else {
                     //关闭组，打开其他组
-                    //打开的是自己，点击自己，关闭自己
-                    //打开的是自己，点击其他组，打开其他组，置顶，关闭自己
                     if (currentExpandGroup == groupPosition) {
-                        elv_commonnumber_commonnumbers.collapseGroup(groupPosition);
+                        //打开的是自己，点击自己，关闭自己
+                        elv_commonNumber_commonNumbers.collapseGroup(groupPosition);
                         currentExpandGroup = -1;
                     } else {
-                        elv_commonnumber_commonnumbers.expandGroup(groupPosition);
-                        elv_commonnumber_commonnumbers.collapseGroup(currentExpandGroup);
-                        elv_commonnumber_commonnumbers.setSelectedGroup(groupPosition);
+                        //打开的是自己，点击其他组，打开其他组，置顶，关闭自己
+                        elv_commonNumber_commonNumbers.expandGroup(groupPosition);
+                        elv_commonNumber_commonNumbers.collapseGroup(currentExpandGroup);
+                        //将打开的条目置顶
+                        elv_commonNumber_commonNumbers.setSelectedGroup(groupPosition);
                         currentExpandGroup = groupPosition;
                     }
                 }
@@ -77,14 +80,17 @@ public class CommonNumberActivity extends Activity {
         });
 
         //设置孩子的点击事件
-        elv_commonnumber_commonnumbers.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+        elv_commonNumber_commonNumbers.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                //获取号码
                 String number = groups.get(groupPosition).child.get(childPosition).number;
                 Intent intent = new Intent();
+                //打电话
                 intent.setAction(Intent.ACTION_CALL);
                 intent.setData(Uri.parse("tel:" + number));
                 startActivity(intent);
+                //执行完成
                 return true;
             }
         });
@@ -122,6 +128,7 @@ public class CommonNumberActivity extends Activity {
             return childPosition;
         }
 
+        // 判断id是否稳定,如果你返回id,返回false,没有返回id,返回true
         @Override
         public boolean hasStableIds() {
             return false;

@@ -1,6 +1,6 @@
 package bean;
 
-/**
+/**Description:电话本中的联系人描述类
  * Created by Sin on 2016/9/12.
  */
 public class ContactsInfo {

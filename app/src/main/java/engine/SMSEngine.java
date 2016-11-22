@@ -52,6 +52,7 @@ public class SMSEngine {
         String str = "";
         if (cursor != null) {
             while (cursor.moveToNext()) {
+                // \t是用来恢复短信时分割的，手机无法输入制表符
                 str += cursor.getString(0) + "\t";
                 str += cursor.getString(1) + "\t";
                 str += cursor.getString(2) + "\t";
@@ -60,7 +61,8 @@ public class SMSEngine {
                 showProgress.setProgress(progress);
             }
             try {
-                FileWriter fileWriter = new FileWriter(new File("/storage/emulated/0/Android/data/com.example.sin.mobilesafe/cache/shit.txt"));
+                FileWriter fileWriter = new FileWriter(new File
+                        ("/storage/emulated/0/Android/data/com.example.sin.mobilesafe/cache/sms_backup.txt"));
                 fileWriter.write(str);
                 fileWriter.flush();
             } catch (IOException e) {
@@ -71,9 +73,9 @@ public class SMSEngine {
 
     //1.创建刷子
     public interface ShowProgress {
-        public void setMax(int max);
+        void setMax(int max);
 
-        public void setProgress(int progress);
+        void setProgress(int progress);
     }
 }
 

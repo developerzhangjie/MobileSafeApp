@@ -10,6 +10,7 @@ import utils.Constants;
 import utils.SharedPreferencesUtils;
 
 /**
+ * Description:开启防盗保护
  * Created by Sin on 2016/9/8.
  */
 public class SetUp5Activity extends SetUpBaseActivity {
@@ -46,7 +47,7 @@ public class SetUp5Activity extends SetUpBaseActivity {
     @Override
     protected boolean next_activity() {
         if (!cb_setup5_protected.isChecked()) {
-            Toast.makeText(this, "请开启手机防盗保护", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SetUp5Activity.this, "请开启手机防盗保护", Toast.LENGTH_SHORT).show();
             return true;
         }
         SharedPreferencesUtils.saveBoolean(this, Constants.ISFIRSTENTER, true);

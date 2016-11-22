@@ -16,7 +16,7 @@ import com.example.sin.mobilesafe.R;
 
 import service.GpsService;
 
-/**
+/**Description:解析来自手机防盗的短信
  * Created by Sin on 2016/9/14.
  */
 public class SMSReceiver extends BroadcastReceiver {
@@ -56,10 +56,7 @@ public class SMSReceiver extends BroadcastReceiver {
                     content.append(temp.getMessageBody());
                     phoneNumber.append(temp.getOriginatingAddress());
                 }
-                System.out.println("发送者号码：" + phoneNumber.toString() + "  短信内容：" + content.toString());
-
                 //需要加一个是否是安全号码判断,才能执行下面的代码
-
                 if ("#*location*#".equals(content.toString())) {
                     //gps追踪
                     Intent service_intent = new Intent(context, GpsService.class);
@@ -87,24 +84,17 @@ public class SMSReceiver extends BroadcastReceiver {
                     };
                     thread.start();
                     mediaPlayer.start();
-                    System.out.println("报警执行完毕");
                     abortBroadcast();
                 } else if ("#*wipe*#".equals(content.toString())) {
                     if (isAdminActive) {
                         // 恢复出厂设置  (建议大家不要在真机上测试) 模拟器不支持该操作
                         //devicePolicyManager.wipeData(0);
-                        System.out.println("恢复出厂设置完成");
-                    } else {
-                        System.out.println("恢复出厂设置未完成");
                     }
                     abortBroadcast();
                 } else if ("#*lockScreen*#".equals(content.toString())) {
                     if (isAdminActive) {
                         mDevicePolicyManager.lockNow(); // 锁屏
                         mDevicePolicyManager.resetPassword("2345", 0); // 设置锁屏密码
-                        System.out.println("锁屏完成");
-                    } else {
-                        System.out.println("锁屏未完成");
                     }
                     abortBroadcast();
                 }

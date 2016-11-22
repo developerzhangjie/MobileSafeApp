@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
-import android.util.Log;
 
 import service.ProtectedService;
 import utils.Constants;
@@ -18,7 +17,6 @@ import utils.SharedPreferencesUtils;
 public class BootCompleteReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("TAG", "手机重启了");
         //1.获取保存的sim卡
         String sp_sim = SharedPreferencesUtils.getString(context, Constants.SIM, "");
         //2.获取本机的sim卡

@@ -12,6 +12,7 @@ import utils.Constants;
 import utils.SharedPreferencesUtils;
 
 /**
+ * Description:设置安全号码
  * Created by Sin on 2016/9/8.
  */
 public class SetUp3Activity extends SetUpBaseActivity {
@@ -29,7 +30,6 @@ public class SetUp3Activity extends SetUpBaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SetUp3Activity.this, ContactsActivity.class);
-//                startActivity(intent);
                 startActivityForResult(intent, SELECTCONTACTS);
             }
         });
@@ -37,7 +37,7 @@ public class SetUp3Activity extends SetUpBaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (data != null) {
+        if (resultCode == RESULT_OK && data != null) {
             String number = data.getStringExtra("number");
             et_setup3_safenumber.setText(number);
         }

@@ -18,6 +18,7 @@ import bean.ContactsInfo;
 import engine.ContactEngine;
 
 /**
+ * Description:获取联系人作为安全号码
  * Created by Sin on 2016/9/12.
  */
 public class ContactsActivity extends Activity {
@@ -69,9 +70,8 @@ public class ContactsActivity extends Activity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             //2.复用缓存
-
-            View view = null;
-            ViewHolder viewHolder = null;
+            View view;
+            ViewHolder viewHolder;
             if (convertView == null) {
                 view = View.inflate(ContactsActivity.this, R.layout.contact_item, null);
                 //3.创建一个空盒子
@@ -86,13 +86,11 @@ public class ContactsActivity extends Activity {
                 view = convertView;//获取复用的view对象
                 viewHolder = (ViewHolder) view.getTag();
             }
-
             //设置显示数据
             //获取联系人的bean类
             ContactsInfo contactsInfo = list.get(position);
             viewHolder.tv_contact_name.setText(contactsInfo.name);
             viewHolder.tv_contact_number.setText(contactsInfo.number);
-
             //获取联系人的头像
             Bitmap bitmap = ContactEngine.getContactsPhoto(getApplicationContext(), contactsInfo.contactId);
             if (bitmap != null) {

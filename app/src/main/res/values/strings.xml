@@ -3,4 +3,5 @@
     <string name="accessibility_service_label">手机卫士</string>
     <string name="accessibility_service_description">手机卫士时刻保护您的安全</string>
     <string name="app_version">版本：</string>
+    <string name="commonNumQuery">常用号码查询</string>
 </resources>

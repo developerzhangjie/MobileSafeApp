@@ -42,9 +42,7 @@ public class WatchDogActivity extends Activity {
         et_watchdog_psw = (EditText) findViewById(R.id.et_watchdog_psw);
         bn_watchdog = (Button) findViewById(R.id.bn_watchdog);
         bn_watchdog.setOnClickListener(new View.OnClickListener() {
-
             private String psw;
-
 
             @Override
             public void onClick(View v) {
@@ -62,7 +60,7 @@ public class WatchDogActivity extends Activity {
                         intent.putExtra("packageName", mPackageName);
                         sendBroadcast(intent);
                         finish();
-                    }else {
+                    } else {
                         Toast.makeText(WatchDogActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
                         return;
                     }

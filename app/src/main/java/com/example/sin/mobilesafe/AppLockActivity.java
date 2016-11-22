@@ -62,11 +62,10 @@ public class AppLockActivity extends Activity implements View.OnClickListener {
         ll_applock_lock = (LinearLayout) findViewById(R.id.ll_applock_lock);
         ll_applock_unlock = (LinearLayout) findViewById(R.id.ll_applock_unlock);
         mWatchDogDao = new WatchDogDao(AppLockActivity.this);
-        //获取系统中的所有安装程序
         new Thread() {
             @Override
             public void run() {
-                super.run();
+                //获取系统中的所有安装程序
                 mApplicationsInfo = AppEngine.getApplicationsInfo(AppLockActivity.this);
                 locklist = new ArrayList<>();
                 unlocklist = new ArrayList<>();
@@ -80,7 +79,6 @@ public class AppLockActivity extends Activity implements View.OnClickListener {
                         unlocklist.add(appInfo);
                     }
                 }
-
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -92,7 +90,6 @@ public class AppLockActivity extends Activity implements View.OnClickListener {
                     }
                 });
             }
-
         }.start();
     }
 

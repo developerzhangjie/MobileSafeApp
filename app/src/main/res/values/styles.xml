@@ -28,7 +28,7 @@
     </style>
 
     <!--setup标题样式-->
-    <style name="setupTitleStytle" parent="activityTitle">
+    <style name="setupTitleStyle" parent="activityTitle">
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingLeft">10dp</item>
     </style>
@@ -83,7 +83,6 @@
         <item name="android:windowFrame">@null</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowAnimationStyle">@style/animationDialog</item>
-
         <!-- 背景的阴影是否开启 -->
         <item name="android:backgroundDimEnabled">true</item>
         <!-- 窗口是否透明 -->

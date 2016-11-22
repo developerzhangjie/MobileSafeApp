@@ -17,12 +17,6 @@ public class AddressDao {
         File file = new File(context.getFilesDir(), "address.db");
         if (file.exists() && !file.isDirectory()) {
             SQLiteDatabase database = SQLiteDatabase.openDatabase(file.getAbsolutePath(), null, SQLiteDatabase.OPEN_READONLY);
-            /*Cursor cursor = sqLiteDatabase.rawQuery("select location from data2 where id=(select outkey from data1 where id=?)",
-                    new String[]{number.substring(0, 7)});
-            if (cursor.moveToNext()) {
-                location = cursor.getString(0);
-            }
-            cursor.close();*/
             if (number.matches("^1[34578]\\d{9}$")) {
                 //查询数据库的操作
                 Cursor cursor = database.rawQuery("select location from data2 where id=(select outkey from data1 where id=?)",

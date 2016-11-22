@@ -4,10 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.SystemClock;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import db.WatchDogContant;
 import db.WatchDogOpenHelper;
@@ -19,7 +15,6 @@ import db.WatchDogOpenHelper;
 
 public class WatchDogDao {
     private WatchDogOpenHelper watchDogOpenHelper;
-    private byte[] b = new byte[1024];
 
     public WatchDogDao(Context context) {
         watchDogOpenHelper = new WatchDogOpenHelper(context);
@@ -27,6 +22,7 @@ public class WatchDogDao {
 
     /**
      * Description:添加程序
+     *
      * @return true:表示添加成功,false:表示添加失败
      * packageName : 表示添加的应用程序的包名
      */
@@ -43,6 +39,7 @@ public class WatchDogDao {
 
     /**
      * Description:删除包名
+     *
      * @return : true:删除成功 false:表示删除失败
      */
     public boolean deleteLockApp(String packageName) {
@@ -58,7 +55,7 @@ public class WatchDogDao {
     }
 
     /**
-     * Description:查询数据库中是否有应用程序包名
+     * Description:查询数据库中是否有应用程序包名，加锁返回true，没加锁返回false
      */
     public boolean queryLockAPP(String packageName) {
         boolean islock = false;
@@ -80,9 +77,9 @@ public class WatchDogDao {
     /**
      * Description:查询所有应用程序的包名
      */
-    public List<String> queryAllLockApp() {
+  /*  public List<String> queryAllLockApp() {
         SystemClock.sleep(2000);
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         // 获取数据
         SQLiteDatabase database = watchDogOpenHelper.getReadableDatabase();
         //查询全部数据
@@ -98,5 +95,5 @@ public class WatchDogDao {
         }
         database.close();
         return list;
-    }
+    }*/
 }

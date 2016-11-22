@@ -16,7 +16,6 @@ public class SetUp1Activity extends SetUpBaseActivity {
     @Override
     protected boolean previous_activity() {
         return false;
-
     }
 
     @Override

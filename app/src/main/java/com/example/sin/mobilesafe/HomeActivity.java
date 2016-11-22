@@ -21,26 +21,24 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import bean.HomeGridviewIteamBeanInfo;
+import bean.HomeGridViewItemBeanInfo;
 import utils.Constants;
 import utils.SharedPreferencesUtils;
 
-/**description：主界面
+/**
+ * description：主界面
  * Created by Sin on 2016/9/1.
  */
 public class HomeActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private ImageView iv_home_logo;
     private ImageView iv_home_setting;
-    private GridView gv_home_gridview;
-    private List<HomeGridviewIteamBeanInfo> list;
-
-
+    private GridView gv_home_gridView;
+    private List<HomeGridViewItemBeanInfo> list;
     private final static String[] TITLES = new String[]{"手机防盗", "骚扰拦截", "软件管家", "进程管理", "流量统计", "手机杀毒", "缓存清理", "常用工具"};
     private final static String[] DESCS = new String[]{"远程定位手机", "全面拦截骚扰", "管理您的软件", "管理运行进程", "流量一目了然", "病毒无处藏身", "系统快如火箭", "工具大全"};
     private final static int[] ICONS = new int[]{R.drawable.sjfd, R.drawable.srlj, R.drawable.rjgj, R.drawable.jcgl, R.drawable.lltj, R.drawable.sjsd, R.drawable.hcql, R.drawable.cygj};
     private AlertDialog dialog;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,30 +46,26 @@ public class HomeActivity extends Activity implements View.OnClickListener, Adap
         setContentView(R.layout.activity_home);
         initView();
         iv_home_setting.setOnClickListener(this);
-        gv_home_gridview.setOnItemClickListener(this);
-
-
+        gv_home_gridView.setOnItemClickListener(this);
     }
 
     private void initView() {
         iv_home_logo = (ImageView) findViewById(R.id.iv_home_logo);
         iv_home_setting = (ImageView) findViewById(R.id.iv_home_setting);
-        gv_home_gridview = (GridView) findViewById(R.id.gv_home_gridview);
-
-
-        //讲数组中的数据存到集合中
+        gv_home_gridView = (GridView) findViewById(R.id.gv_home_gridview);
+        //将数组中的数据存到集合中，list中保存的是每个模块的对象
         list = new ArrayList<>();
         for (int i = 0; i < ICONS.length; i++) {
             //模块的对象
-            HomeGridviewIteamBeanInfo info = new HomeGridviewIteamBeanInfo();
-            info.inconId = ICONS[i];
+            HomeGridViewItemBeanInfo info = new HomeGridViewItemBeanInfo();
+            info.iconId = ICONS[i];
             info.title = TITLES[i];
             info.desc = DESCS[i];
             list.add(info);
         }
         //设置动画
         setAnimation();
-        gv_home_gridview.setAdapter(new MyAdapter());
+        gv_home_gridView.setAdapter(new MyAdapter());
     }
 
     //设置动画
@@ -87,9 +81,9 @@ public class HomeActivity extends Activity implements View.OnClickListener, Adap
         objectAnimator.setRepeatMode(ValueAnimator.RESTART);
         //开始执行
         objectAnimator.start();
-
     }
 
+    //跳转到设置界面
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -100,16 +94,16 @@ public class HomeActivity extends Activity implements View.OnClickListener, Adap
         }
     }
 
+    //每个模块
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
         switch (position) {
             case 0:
                 //手机防盗
                 //获取保存的密码，看是否为空，如果为空，就进行初始化密码设置，若不为空，就输入密码进行验证
                 String psw = SharedPreferencesUtils.getString(HomeActivity.this, Constants.SETPASSWORD, "");
                 if (TextUtils.isEmpty(psw)) {
-                    //初始化
+                    //没设置过密码，就进行初始化密码设置
                     showSetPassWordDialog();
                 } else {
                     //验证密码
@@ -120,13 +114,11 @@ public class HomeActivity extends Activity implements View.OnClickListener, Adap
                 //骚扰拦截操作
                 Intent intent1 = new Intent(HomeActivity.this, CallSmsSafeActivity.class);
                 startActivity(intent1);
-
                 break;
             case 2:
                 //软件管家操作
                 Intent intent2 = new Intent(HomeActivity.this, AppManagerActivity.class);
                 startActivity(intent2);
-
                 break;
             case 3:
                 //进程管理
@@ -142,7 +134,6 @@ public class HomeActivity extends Activity implements View.OnClickListener, Adap
                 //手机杀毒
                 Intent intent5 = new Intent(HomeActivity.this, AntivirusActivity.class);
                 startActivity(intent5);
-
                 break;
             case 6:
                 //缓存清理
@@ -150,6 +141,7 @@ public class HomeActivity extends Activity implements View.OnClickListener, Adap
                 startActivity(intent6);
                 break;
             case 7:
+                //常用工具
                 Intent intent7 = new Intent(HomeActivity.this, CommonToolsActivity.class);
                 startActivity(intent7);
                 break;
@@ -162,7 +154,6 @@ public class HomeActivity extends Activity implements View.OnClickListener, Adap
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         //将布局文件转化成view对象
         final View view = View.inflate(this, R.layout.dialog_enterpassword, null);
-
         //复制步骤三
         final EditText et_setpassword_psw = (EditText) view.findViewById(R.id.et_setpassword_psw);
         Button btn_ok = (Button) view.findViewById(R.id.btn_ok);
@@ -192,14 +183,12 @@ public class HomeActivity extends Activity implements View.OnClickListener, Adap
                 }
             }
         });
-
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
-
         //复制步骤二
         builder.setView(view);//添加view
         dialog = builder.create();
@@ -220,7 +209,6 @@ public class HomeActivity extends Activity implements View.OnClickListener, Adap
             Intent intent = new Intent(HomeActivity.this, SetUp1Activity.class);
             startActivity(intent);
         }
-
     }
 
     //初始化密码设置对话框
@@ -233,7 +221,6 @@ public class HomeActivity extends Activity implements View.OnClickListener, Adap
         final EditText et_setpassword_confirm = (EditText) view.findViewById(R.id.et_setpassword_confirm);
         Button btn_ok = (Button) view.findViewById(R.id.btn_ok);
         Button btn_cancel = (Button) view.findViewById(R.id.btn_cancel);
-
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -295,9 +282,9 @@ public class HomeActivity extends Activity implements View.OnClickListener, Adap
             TextView tv_homeitem_desc = (TextView) view.findViewById(R.id.tv_homeitem_desc);
             //设置显示数据
             //1.获取相应条目的bean对象,设置数据
-            HomeGridviewIteamBeanInfo homeGridviewItemBeanInfo = list.get(position);
+            HomeGridViewItemBeanInfo homeGridviewItemBeanInfo = list.get(position);
             //2.设置显示
-            iv_homeitem_icon.setImageResource(homeGridviewItemBeanInfo.inconId);
+            iv_homeitem_icon.setImageResource(homeGridviewItemBeanInfo.iconId);
             tv_homeitem_title.setText(homeGridviewItemBeanInfo.title);
             tv_homeitem_desc.setText(homeGridviewItemBeanInfo.desc);
             return view;

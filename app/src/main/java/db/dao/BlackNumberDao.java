@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bean.BlackNumberInfo;
-import db.BlackNumberContant;
+import db.BlackNumberConstant;
 import db.BlackNumberOpenHelper;
 
 /**
- * description:数据库的具体操作
+ * Description:数据库的具体操作
  * Created by Sin on 2016/9/19.
  */
 public class BlackNumberDao {
@@ -33,9 +33,9 @@ public class BlackNumberDao {
         SQLiteDatabase database = blackNumberOpenHelper.getWritableDatabase();
         //2.添加操作
         ContentValues contentValues = new ContentValues();
-        contentValues.put(BlackNumberContant.BLACKNUMBER_NUMBER, blackNumber);
-        contentValues.put(BlackNumberContant.BLACKNUMBER_MODE, mode);
-        long insert = database.insert(BlackNumberContant.BLACKNUMBER_TABLENAME, null, contentValues);
+        contentValues.put(BlackNumberConstant.BLACKNUMBER_NUMBER, blackNumber);
+        contentValues.put(BlackNumberConstant.BLACKNUMBER_MODE, mode);
+        long insert = database.insert(BlackNumberConstant.BLACKNUMBER_TABLENAME, null, contentValues);
         //contentValues.clear();
         database.close();
         return insert != -1;
@@ -47,11 +47,11 @@ public class BlackNumberDao {
         //1.获取数据库
         SQLiteDatabase database = blackNumberOpenHelper.getWritableDatabase();
         //2.添加操作
-        int delete = database.delete(BlackNumberContant.BLACKNUMBER_TABLENAME,
-                BlackNumberContant.BLACKNUMBER_NUMBER + "=?",
+        int delete = database.delete(BlackNumberConstant.BLACKNUMBER_TABLENAME,
+                BlackNumberConstant.BLACKNUMBER_NUMBER + "=?",
                 new String[]{blackNumber});
-        /*database.delete(BlackNumberContant.BLACKNUMBER_TABLENAME,
-                BlackNumberContant.BLACKNUMBER_NUMBER + "=?",
+        /*database.delete(BlackNumberConstant.BLACKNUMBER_TABLENAME,
+                BlackNumberConstant.BLACKNUMBER_NUMBER + "=?",
                 new String[]{blackNumber});*/
         database.close();
         return delete != 0;
@@ -64,28 +64,28 @@ public class BlackNumberDao {
         SQLiteDatabase database = blackNumberOpenHelper.getWritableDatabase();
         //2.添加操作
         ContentValues values = new ContentValues();
-        values.put(BlackNumberContant.BLACKNUMBER_MODE, mode);
-        int update = database.update(BlackNumberContant.BLACKNUMBER_TABLENAME,
+        values.put(BlackNumberConstant.BLACKNUMBER_MODE, mode);
+        int update = database.update(BlackNumberConstant.BLACKNUMBER_TABLENAME,
                 values,
-                BlackNumberContant.BLACKNUMBER_NUMBER + "=?",
+                BlackNumberConstant.BLACKNUMBER_NUMBER + "=?",
                 new String[]{blackNumber});
-        /*database.update(BlackNumberContant.BLACKNUMBER_TABLENAME,
+        /*database.update(BlackNumberConstant.BLACKNUMBER_TABLENAME,
                 values,
-                BlackNumberContant.BLACKNUMBER_NUMBER + "=?",
+                BlackNumberConstant.BLACKNUMBER_NUMBER + "=?",
                 new String[]{blackNumber});*/
         database.close();
         return update != 0;
     }
 
-    //查询黑名单
+    //查询指定黑名单
     public int queryBlackNumber(String blackNumber) {
         int mode = -1;
         //1.获取数据库
         SQLiteDatabase database = blackNumberOpenHelper.getWritableDatabase();
         //2.添加操作
-        Cursor cursor = database.query(BlackNumberContant.BLACKNUMBER_TABLENAME,
-                new String[]{BlackNumberContant.BLACKNUMBER_MODE},
-                BlackNumberContant.BLACKNUMBER_NUMBER + "=?",
+        Cursor cursor = database.query(BlackNumberConstant.BLACKNUMBER_TABLENAME,
+                new String[]{BlackNumberConstant.BLACKNUMBER_MODE},
+                BlackNumberConstant.BLACKNUMBER_NUMBER + "=?",
                 new String[]{blackNumber},
                 null, null, null);
         if (cursor != null) {
@@ -104,9 +104,9 @@ public class BlackNumberDao {
         //获取数据库
         SQLiteDatabase database = blackNumberOpenHelper.getReadableDatabase();
         //添加操作
-        Cursor cursor = database.query(BlackNumberContant.BLACKNUMBER_TABLENAME,
-                new String[]{BlackNumberContant.BLACKNUMBER_NUMBER,
-                        BlackNumberContant.BLACKNUMBER_MODE},
+        Cursor cursor = database.query(BlackNumberConstant.BLACKNUMBER_TABLENAME,
+                new String[]{BlackNumberConstant.BLACKNUMBER_NUMBER,
+                        BlackNumberConstant.BLACKNUMBER_MODE},
                 null, null, null, null, null);
         if (cursor != null) {
             while (cursor.moveToNext()) {
@@ -133,7 +133,8 @@ public class BlackNumberDao {
         List<BlackNumberInfo> list = new ArrayList<>();
         //获取数据库
         SQLiteDatabase database = blackNumberOpenHelper.getReadableDatabase();
-        Cursor cursor = database.rawQuery("select blacknumber,mode from blackNumberData limit ? offset ?", new String[]{maxNumber + "", index + ""});
+        Cursor cursor = database.rawQuery("select blacknumber,mode from blackNumberData limit ? offset ?",
+                new String[]{maxNumber + "", index + ""});
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 String number = cursor.getString(0);

@@ -11,9 +11,6 @@ public class SharedPreferencesUtils {
 
     private static SharedPreferences sp;
 
-    /**
-     * Description:保存和获取状态信息
-     */
     public static void saveBoolean(Context context, String key, boolean value) {
         if (sp == null) {
             sp = context.getSharedPreferences("config", Context.MODE_PRIVATE);
@@ -28,9 +25,6 @@ public class SharedPreferencesUtils {
         return sp.getBoolean(key, defValue);
     }
 
-    /**
-     * Description:保存和获取颜色信息
-     */
     public static void saveString(Context context, String key, String value) {
         if (sp == null) {
             sp = context.getSharedPreferences("config", Context.MODE_PRIVATE);
@@ -52,10 +46,6 @@ public class SharedPreferencesUtils {
         sp.edit().putInt(key, value).commit();
     }
 
-
-    /**
-     * Description:获取信息
-     */
     public static int getInt(Context context, String key, int defValue) {
         if (sp == null) {
             sp = context.getSharedPreferences("config", Context.MODE_PRIVATE);

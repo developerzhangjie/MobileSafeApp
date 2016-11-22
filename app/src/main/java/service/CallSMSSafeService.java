@@ -12,15 +12,18 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
+import android.support.annotation.RequiresApi;
 import android.telephony.PhoneStateListener;
 import android.telephony.SmsMessage;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import com.android.internal.telephony.ITelephony;
 
 import java.lang.reflect.Method;
 
-import db.BlackNumberContant;
+import db.BlackNumberConstant;
 import db.dao.BlackNumberDao;
 
 /**
@@ -67,39 +70,52 @@ public class CallSMSSafeService extends Service {
     }
 
     //短信广播接收者
-    private class SMSReceiver extends BroadcastReceiver {
+    private class SMSReceiver extends BroadcastReceiver implements Thread.UncaughtExceptionHandler {
         @Override
-        public void onReceive(Context context, Intent intent) {
-            Bundle bundle = intent.getExtras();
-            //如果不为空
-            if (bundle != null) {
-                //将pdus里面的内容转化成Object[]数组
-                Object pdusData[] = (Object[]) bundle.get("pdus");
-                String format = intent.getStringExtra("format");
-                //解析短信
-                SmsMessage[] msg = new SmsMessage[pdusData.length];
-                for (int i = 0; i < msg.length; i++) {
-                    byte pdus[] = (byte[]) pdusData[i];
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        msg[i] = SmsMessage.createFromPdu(pdus, format);
+        public void onReceive(Context context, final Intent intent) {
+            Thread.setDefaultUncaughtExceptionHandler(this);
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @RequiresApi(api = Build.VERSION_CODES.M)
+                @Override
+                public void run() {
+                    try {
+                        Bundle bundle = intent.getExtras();
+                        //如果不为空
+                        if (bundle != null) {
+                            //将pdus里面的内容转化成Object[]数组
+                            Object pdusData[] = (Object[]) bundle.get("pdus");
+                            String format = intent.getStringExtra("format");
+                            //解析短信
+                            SmsMessage[] msg = new SmsMessage[pdusData.length];
+                            for (int i = 0; i < msg.length; i++) {
+                                byte pdus[] = (byte[]) pdusData[i];
+                                msg[i] = SmsMessage.createFromPdu(pdus, format);
+                            }
+                            StringBuffer content = new StringBuffer();//获取短信内容
+                            StringBuffer phoneNumber = new StringBuffer();//获取地址
+                            //分析短信具体参数
+                            for (SmsMessage temp : msg) {
+                                content.append(temp.getMessageBody());
+                                phoneNumber.append(temp.getOriginatingAddress());
+                            }
+                            int mode = mBlackNumberDao.queryBlackNumber(phoneNumber.toString());
+                            if (mode == BlackNumberConstant.BACKNUMBER_SMS || mode == BlackNumberConstant.BALCKNUMBER_ALL) {
+                                abortBroadcast();
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
-                StringBuffer content = new StringBuffer();//获取短信内容
-                StringBuffer phoneNumber = new StringBuffer();//获取地址
-                //分析短信具体参数
-                for (SmsMessage temp : msg) {
-                    content.append(temp.getMessageBody());
-                    phoneNumber.append(temp.getOriginatingAddress());
-                }
-                System.out.println("发送者号码：" + phoneNumber.toString() + "  短信内容：" + content.toString());
-                int mode = mBlackNumberDao.queryBlackNumber(phoneNumber.toString());
-                if (mode == BlackNumberContant.BACKNUMBER_SMS || mode == BlackNumberContant.BALCKNUMBER_ALL) {
-                    abortBroadcast();
-                }
-            }
+            });
+        }
+
+
+        @Override
+        public void uncaughtException(Thread thread, Throwable throwable) {
+            Log.i("AAA", "uncaughtException   " + throwable);
         }
     }
-
 
 
     //电话监听
@@ -110,7 +126,7 @@ public class CallSMSSafeService extends Service {
             switch (state) {
                 case TelephonyManager.CALL_STATE_RINGING:
                     int mode = mBlackNumberDao.queryBlackNumber(incomingNumber);
-                    if (mode == BlackNumberContant.BLACKNUMBER_CALL || mode == BlackNumberContant.BALCKNUMBER_ALL) {
+                    if (mode == BlackNumberConstant.BLACKNUMBER_CALL || mode == BlackNumberConstant.BALCKNUMBER_ALL) {
                         System.out.println("电话拦截");
                         endCall();
                         //删除通话记录

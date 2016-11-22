@@ -17,18 +17,18 @@
             android:id="@+id/bn_applock_unlock"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:background="@drawable/dg_btn_confirm_normal"
+            android:background="@drawable/dg_button_cancel_normal"
             android:text="未加锁"
-            android:textColor="#ffffff"
+            android:textColor="#429ED6"
             android:textSize="14sp"/>
 
         <Button
             android:id="@+id/bn_applock_lock"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:background="@drawable/dg_button_cancel_normal"
+            android:background="@drawable/dg_btn_confirm_normal"
             android:text="已加锁"
-            android:textColor="#429ED6"
+            android:textColor="#ffffff"
             android:textSize="14sp"/>
     </LinearLayout>
 
@@ -55,7 +55,7 @@
             <ListView
                 android:id="@+id/lv_applock_lock"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></ListView>
+                android:layout_height="match_parent"/>
         </LinearLayout>
 
         <LinearLayout
@@ -76,7 +76,7 @@
             <ListView
                 android:id="@+id/lv_applock_unlock"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></ListView>
+                android:layout_height="match_parent"/>
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

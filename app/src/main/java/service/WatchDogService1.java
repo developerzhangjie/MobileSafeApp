@@ -40,7 +40,6 @@ public class WatchDogService1 extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-
         mCurrentUnlockAppReceiver = new CurrentUnlockAppReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("finishActivity");
@@ -49,7 +48,6 @@ public class WatchDogService1 extends Service {
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         registerReceiver(mLockScreenOffReceiver, filter);
-
         new Thread() {
             @Override
             public void run() {
@@ -57,18 +55,20 @@ public class WatchDogService1 extends Service {
                 mWatchDogDao = new WatchDogDao(WatchDogService1.this);
                 ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
                 while (isWatch) {
-                    String packname = ""; /* Android5.0之后获取程序锁的方式是不一样的*/
+                    String packName; /* Android5.0之后获取程序锁的方式是不一样的*/
                     if (Build.VERSION.SDK_INT > 20) {
                         // 5.0及其以后的版本
                         List<ActivityManager.RunningAppProcessInfo> tasks = am.getRunningAppProcesses();
                         while (null != tasks && tasks.size() > 0) {
-                            packname = tasks.get(0).processName;
-                            if (mWatchDogDao.queryLockAPP(packname)) {
+                            packName = tasks.get(0).processName;
+                            //判断有没有加锁
+                            if (mWatchDogDao.queryLockAPP(packName)) {
                                 //解决一个按home键产生的bug
-                                if (!packname.equals(mPackageName)) {
+                                if (!packName.equals(mPackageName)) {
                                     Intent intent = new Intent(WatchDogService1.this, WatchDogActivity.class);
+                                    //从服务中启动活动需要加上这句
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    intent.putExtra("packageName", packname);
+                                    intent.putExtra("packageName", packName);
                                     startActivity(intent);
                                 }
                             }
@@ -83,14 +83,13 @@ public class WatchDogService1 extends Service {
                         List<ActivityManager.RunningTaskInfo> infos = am.getRunningTasks(1);
                         for (ActivityManager.RunningTaskInfo runningTaskInfo : infos) {
                             mBaseActivity = runningTaskInfo.baseActivity;
-                            packname = mBaseActivity.getPackageName();
+                            packName = mBaseActivity.getPackageName();
                             //判断程序是否加锁，加锁程序，弹出加锁界面
-                            if (mWatchDogDao.queryLockAPP(packname)) {
-                                //
-                                if (!packname.equals(mPackageName)) {
+                            if (mWatchDogDao.queryLockAPP(packName)) {
+                                if (!packName.equals(mPackageName)) {
                                     Intent intent = new Intent(WatchDogService1.this, WatchDogActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    intent.putExtra("packageName", packname);
+                                    intent.putExtra("packageName", packName);
                                     startActivity(intent);
                                 }
                             }
@@ -100,7 +99,6 @@ public class WatchDogService1 extends Service {
                                 e.printStackTrace();
                             }
                         }
-                        // packname = infos.get(0).topActivity.getPackageName();
                     }
                 }
             }

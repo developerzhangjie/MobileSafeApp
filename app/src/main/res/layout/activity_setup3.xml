@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <TextView
-        style="@style/setupTitleStytle"
-        android:text="3.设置安全号码" />
+        style="@style/setupTitleStyle"
+        android:text="3.设置安全号码"/>
 
     <TextView
         style="@style/setupContentTitle"
-        android:text="SIM卡如果发生变化:" />
+        android:text="SIM卡如果发生变化:"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -19,22 +19,22 @@
         android:paddingRight="8dp"
         android:text="就会发送报警的短信给安全号码"
         android:textColor="#aa000000"
-        android:textSize="18sp" />
+        android:textSize="18sp"/>
 
     <EditText
         android:id="@+id/et_setup3_safenumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="请输入安全号码"
-        android:padding="8dp" />
+        android:padding="8dp"/>
 
     <Button
         android:id="@+id/bn_setup3_selectContacts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
         android:background="@drawable/home_setpassworddialog_ok_selector"
-        android:text="请选择安全号码" />
+        android:padding="8dp"
+        android:text="请选择安全号码"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:src="@drawable/step_3" />
+            android:src="@drawable/step_3"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -56,33 +56,32 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/presence_invisible" />
+                android:src="@android:drawable/presence_invisible"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/presence_invisible" />
+                android:src="@android:drawable/presence_invisible"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/presence_invisible" />
+                android:src="@android:drawable/presence_online"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/presence_online" />
-
+                android:src="@android:drawable/presence_invisible"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/presence_invisible" />
+                android:src="@android:drawable/presence_invisible"/>
         </LinearLayout>
 
-        <Button style="@style/next" />
+        <Button style="@style/next"/>
 
-        <Button style="@style/previous" />
+        <Button style="@style/previous"/>
     </RelativeLayout>
 
 </LinearLayout>

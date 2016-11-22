@@ -8,8 +8,8 @@
     <color name="home_setting_shape">#99ffffff</color>
     <color name="home_setting_shape_press">#22ffffff</color>
     <color name="activity_title">#429ED6</color>
-    <color name="losdfindProtectedPressColor">#99ffff</color>
-    <color name="losdfindProtectedNormalColor">#ffffff</color>
+    <color name="lostFindProtectedPressColor">#99ffff</color>
+    <color name="lostFindProtectedNormalColor">#ffffff</color>
     <color name="textColorPrimary">#ffffffff</color>
     <color name="textColorPrimaryDark">#ff000000</color>
 </resources>

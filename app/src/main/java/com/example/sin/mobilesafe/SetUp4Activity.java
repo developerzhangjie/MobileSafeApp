@@ -4,7 +4,6 @@ import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -13,6 +12,7 @@ import android.widget.Toast;
 import receiver.Admin;
 
 /**
+ * Description:激活设备管理员
  * Created by Sin on 2016/9/8.
  */
 public class SetUp4Activity extends SetUpBaseActivity {
@@ -53,8 +53,6 @@ public class SetUp4Activity extends SetUpBaseActivity {
                     devicePolicyManager.removeActiveAdmin(componentName);//设置取消激活超级管理员
                     //修改图片
                     iv_setup4_activation.setImageResource(R.drawable.admin_inactivated);
-                    //onDisableRequested(this,);
-
                 } else {
                     //现处于未激活状态 点击之后变成激活
                     Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
@@ -64,38 +62,11 @@ public class SetUp4Activity extends SetUpBaseActivity {
                     //设置描述信息
                     intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "黑马手机卫士");
                     //跳转操作
-                    //REQUEST_CODE_ENABLE_ADMIN
                     startActivityForResult(intent, REQUEST_CODE_ENABLE_ADMIN);
                 }
             }
         });
     }
-
-    //这个方法防卸载
-    /*public  CharSequence onDisableRequested(Context context, Intent intent) {
-        // TODO Auto-generated method stub
-        Intent intent1 = context.getPackageManager().getLaunchIntentForPackage("com.android.settings" );
-        intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent1);
-        final DevicePolicyManager dpm = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
-        dpm.lockNow();
-        new  Thread( new  Runnable() {
-            @Override
-            public   void  run() {
-                int  i =  0 ;
-                while (i< 70 ){
-                    dpm.lockNow();
-                    try  {
-                        Thread.sleep( 100 );
-                        i++;
-                    }  catch  (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }).start();
-        return   "This is a onDisableRequested response message" ;
-    }*/
 
     //这个方法进行更改图标的操作
     @Override
@@ -104,13 +75,9 @@ public class SetUp4Activity extends SetUpBaseActivity {
         if (requestCode == REQUEST_CODE_ENABLE_ADMIN) {
             if (devicePolicyManager.isAdminActive(componentName)) {
                 //已经激活
-                Log.d("TAG", "设置完成管理员图片");
                 iv_setup4_activation.setImageResource(R.drawable.admin_activated);
             } else {
-                Log.d("TAG", "未设置完成管理员图片");
                 iv_setup4_activation.setImageResource(R.drawable.admin_inactivated);
-                Log.d("TAG", "未设置完成管理员图片急急急急急急急急急");
-
             }
         }
     }

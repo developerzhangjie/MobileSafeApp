@@ -82,7 +82,6 @@ public class CommonToolsActivity extends Activity implements View.OnClickListene
             //短信备份
             case R.id.sv_commontools_backup:
                 SMSEngine.verifyStoragePermissions(CommonToolsActivity.this);
-                //SMSEngine.getSMS(CommonToolsActivity.this);
                 final ProgressDialog progressDialog = new ProgressDialog(CommonToolsActivity.this);
                 progressDialog.setCancelable(false);
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);

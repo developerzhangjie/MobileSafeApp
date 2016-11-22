@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -19,10 +21,11 @@ import android.widget.TextView;
 import java.util.List;
 
 import bean.BlackNumberInfo;
-import db.BlackNumberContant;
+import db.BlackNumberConstant;
 import db.dao.BlackNumberDao;
 
 /**
+ * Description:骚扰拦截界面
  * Created by Sin on 2016/9/16.
  */
 public class CallSmsSafeActivity extends Activity implements View.OnClickListener {
@@ -36,7 +39,7 @@ public class CallSmsSafeActivity extends Activity implements View.OnClickListene
     private Context mContext;
     private final int REQUEST_CODE_ADD = 100;
     private final int REQUEST_CODE_UPDADE = 101;
-    private final int MAXNUMBER = 20;
+    private final int MAX_NUMBER = 20;
     private int startIndex = 0;
     private MyAdapter mMyAdapter;
 
@@ -47,6 +50,11 @@ public class CallSmsSafeActivity extends Activity implements View.OnClickListene
         setContentView(R.layout.activity_callsmssafe);
         mContext = this;
         initView();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void initView() {
@@ -74,11 +82,13 @@ public class CallSmsSafeActivity extends Activity implements View.OnClickListene
         lv_callsms_contant.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
+                //整个滚动事件结束
                 if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+                    //获取屏幕中最后一条可见条目的位置
                     int position = lv_callsms_contant.getLastVisiblePosition();
                     if (position == list.size() - 1) {
                         //加载数据
-                        startIndex += MAXNUMBER;
+                        startIndex += MAX_NUMBER;
                         fillData();
                     }
                 }
@@ -89,7 +99,6 @@ public class CallSmsSafeActivity extends Activity implements View.OnClickListene
 
             }
         });
-
     }
 
     /**
@@ -102,9 +111,9 @@ public class CallSmsSafeActivity extends Activity implements View.OnClickListene
             public void run() {
                 //list = blackNumberDao.queryAllBlackNumber();
                 if (list == null) {
-                    list = blackNumberDao.queryPartBlackNumber(MAXNUMBER, startIndex);
+                    list = blackNumberDao.queryPartBlackNumber(MAX_NUMBER, startIndex);
                 } else {
-                    list.addAll(blackNumberDao.queryPartBlackNumber(MAXNUMBER, startIndex));
+                    list.addAll(blackNumberDao.queryPartBlackNumber(MAX_NUMBER, startIndex));
                 }
                 runOnUiThread(new Runnable() {
                     @Override
@@ -113,6 +122,7 @@ public class CallSmsSafeActivity extends Activity implements View.OnClickListene
                             mMyAdapter = new MyAdapter();
                             lv_callsms_contant.setEmptyView(iv_callsms_empty);
                         } else {
+                            //为什么要刷新？为了滑动不会错乱
                             mMyAdapter.notifyDataSetChanged();
                         }
                         lv_callsms_contant.setAdapter(mMyAdapter);
@@ -124,7 +134,7 @@ public class CallSmsSafeActivity extends Activity implements View.OnClickListene
         }.start();
     }
 
-
+    //添加黑名单
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -134,8 +144,6 @@ public class CallSmsSafeActivity extends Activity implements View.OnClickListene
                 break;
         }
     }
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_ADD) {
@@ -150,6 +158,7 @@ public class CallSmsSafeActivity extends Activity implements View.OnClickListene
                         list.add(blackNumberInfo);
                         //刷新列表
                         mMyAdapter.notifyDataSetChanged();
+                        Log.d("TAG", blackNumberInfo.number);
                     }
                     break;
                 default:
@@ -191,7 +200,7 @@ public class CallSmsSafeActivity extends Activity implements View.OnClickListene
             View view;
             ViewHolder viewHolder;
             if (convertView == null) {
-                //这个地方用getApplicationContext()不能将能容显示出来,用CallSmsSafeActivity.this可以，为什么？
+                //这个地方用getApplicationContext()不能将内容显示出来,用CallSmsSafeActivity.this可以，为什么？
                 view = View.inflate(CallSmsSafeActivity.this, R.layout.calsssmssafe_item, null);
                 viewHolder = new ViewHolder();
                 //将view.findViewById放在盒子里
@@ -211,13 +220,13 @@ public class CallSmsSafeActivity extends Activity implements View.OnClickListene
             //获取出拦截模式，根据拦截模式显示相应的文字
             int mode = blackNumberInfo.mode;
             switch (mode) {
-                case BlackNumberContant.BLACKNUMBER_CALL:
+                case BlackNumberConstant.BLACKNUMBER_CALL:
                     viewHolder.tv_callsmssafe_mode.setText("电话拦截");
                     break;
-                case BlackNumberContant.BACKNUMBER_SMS:
+                case BlackNumberConstant.BACKNUMBER_SMS:
                     viewHolder.tv_callsmssafe_mode.setText("短信拦截");
                     break;
-                case BlackNumberContant.BALCKNUMBER_ALL:
+                case BlackNumberConstant.BALCKNUMBER_ALL:
                     viewHolder.tv_callsmssafe_mode.setText("全部拦截");
                     break;
             }
@@ -229,9 +238,12 @@ public class CallSmsSafeActivity extends Activity implements View.OnClickListene
                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            //先从数据库中删除
                             boolean isDelete = blackNumberDao.deleteBlackNumber(blackNumberInfo.number);
                             if (isDelete) {
+                                //从list中将数据删除
                                 list.remove(position);
+                                //刷新列表
                                 mMyAdapter.notifyDataSetChanged();
                             }
                         }
