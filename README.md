@@ -3,7 +3,7 @@
 ##基本信息
 
 - 开发环境：Android Studio2.2.3
-- 运行环境：Android4.3 Android4.4.4 Android5.0
+- 运行环境：Android4.3 Android4.4.4 Android6.0
 - 测试机型：中兴U9180 小米3 华为荣耀C8817D NEXUS5X
 - 功能包括：手机防盗，骚扰拦，软件管家，进程管理，流量监控，病毒查杀，缓存清理，常用工具。
 - 使用框架：XUtils3 Gson CircleProgress
